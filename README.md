@@ -4,4 +4,4 @@ this for farsint
 
 #### License
 
-mit
+mit# farsint
