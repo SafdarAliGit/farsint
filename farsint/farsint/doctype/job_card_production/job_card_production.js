@@ -1,8 +1,8 @@
 frappe.ui.form.on('Job Card Production', {
     refresh: function(frm) {
-		frm.add_custom_button(__('Fabric Issue'), function () {
-            fabric_issue(frm);
-        }).removeClass("btn-default").addClass("btn btn-xs btn-yellow");
+		// frm.add_custom_button(__('Fabric Issue'), function () {
+        //     fabric_issue(frm);
+        // }).removeClass("btn-default").addClass("btn btn-xs btn-yellow");
 
 		frm.add_custom_button(__('Request Raw Material'), function () {
             create_material_request_chemicals_and_dyes(frm);
