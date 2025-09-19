@@ -24,12 +24,7 @@
   "column_break_jzmx",
   "batch",
   "raw_item_chamicals_section",
-  "section_break_hm91j",
   "raw_item_chamicals",
-  "raw_item_dyes_section",
-  "raw_item_dyes",
-  "toping_section",
-  "toping",
   "section_break_k3sxa",
   "total_amount",
   "column_break_takpw",
@@ -85,35 +80,13 @@
   {
    "fieldname": "raw_item_chamicals_section",
    "fieldtype": "Section Break",
-   "label": "Raw Item Chamicals"
+   "label": "Recipe"
   },
   {
    "fieldname": "raw_item_chamicals",
    "fieldtype": "Table",
-   "label": "Raw Item Chamicals",
+   "label": "Recipe",
    "options": "Raw Item Chamicals"
-  },
-  {
-   "fieldname": "raw_item_dyes_section",
-   "fieldtype": "Section Break",
-   "label": "Raw Item Dyes"
-  },
-  {
-   "fieldname": "raw_item_dyes",
-   "fieldtype": "Table",
-   "label": "Raw Item Dyes",
-   "options": "Raw Item Dyes"
-  },
-  {
-   "fieldname": "toping_section",
-   "fieldtype": "Section Break",
-   "label": "Toping"
-  },
-  {
-   "fieldname": "toping",
-   "fieldtype": "Table",
-   "label": "Toping",
-   "options": "Toping"
   },
   {
    "fieldname": "operation_route_section",
@@ -125,10 +98,6 @@
    "fieldtype": "Table",
    "label": "Operation Route",
    "options": "Operation Route"
-  },
-  {
-   "fieldname": "section_break_hm91j",
-   "fieldtype": "Section Break"
   },
   {
    "fieldname": "section_break_k3sxa",
@@ -149,7 +118,7 @@
    "default": "0",
    "fieldname": "rate_per_kg",
    "fieldtype": "Currency",
-   "label": "Rate per KG",
+   "label": "Rate per Pcs",
    "read_only": 1
   },
   {
@@ -207,7 +176,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-19 21:11:58.130035",
+ "modified": "2025-09-19 21:56:40.273559",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Job Card Production",
