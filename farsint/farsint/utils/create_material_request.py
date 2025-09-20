@@ -5,7 +5,7 @@ def create_material_request_chemicals_and_dyes(job_card_name):
     """Create a Material Request (Material Transfer) from Job Card Dyeing child tables"""
 
     # Load the Job Card Dyeing document
-    job_card = frappe.get_doc("Job Card Dyeing", job_card_name)
+    job_card = frappe.get_doc("Job Card Production", job_card_name)
 
     # check existing mr
     existing_mr = frappe.db.get_value(
@@ -28,7 +28,7 @@ def create_material_request_chemicals_and_dyes(job_card_name):
     mr.material_request_type = "Material Transfer"
     mr.company = job_card.company if hasattr(job_card, "company") else frappe.defaults.get_global_default("company")
     mr.transaction_date = job_card.date or frappe.utils.today()
-    mr.custom_job_card_dyeing = job_card.name
+    mr.custom_job_card_production = job_card.name
 
     # --- Pull items from raw_item_chamicals child table ---
     for item in job_card.raw_item_chamicals:
@@ -40,18 +40,6 @@ def create_material_request_chemicals_and_dyes(job_card_name):
             "from_warehouse": job_card.chemicals_store,
             "warehouse": job_card.production_warehouse,
             "schedule_date": job_card.date
-        })
-
-    # --- Pull items from raw_item_dyes child table ---
-    for item in job_card.raw_item_dyes:
-        mr.append("items", {
-            "item_code": item.item,
-            "stock_uom": item.uom,
-            "uom": item.uom,
-            "qty": item.qty,
-             "from_warehouse": job_card.chemicals_store,
-            "warehouse": job_card.production_warehouse,
-            "schedule_date": job_card.date 
         })
 
     # Insert into DB
