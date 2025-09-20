@@ -167,6 +167,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "finish_item.batch_number_series",
    "fieldname": "batch",
    "fieldtype": "Link",
    "label": "Batch",
@@ -176,7 +177,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-09-19 21:56:40.273559",
+ "modified": "2025-09-20 22:06:50.129548",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Job Card Production",

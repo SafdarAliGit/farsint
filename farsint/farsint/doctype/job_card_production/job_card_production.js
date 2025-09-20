@@ -35,15 +35,11 @@ frappe.ui.form.on('Job Card Production', {
 	}
 });
   
-  frappe.ui.form.on('Raw Item Chamicals', {
-	percentage: function(frm, cdt, cdn) {
-        apply_percentage_on_chemicals(frm, cdt, cdn);
-	}
-  });
 
 
-  function calculate_totals(frm, cdt, cdn, field_to_set,child_table_fieldname, fieldname, precision = 4) {
-	const row = locals[cdt][cdn];
+
+
+  function calculate_totals(frm, field_to_set,child_table_fieldname, fieldname, precision = 4) {
 	let total = 0;
   
 	// Loop across child table rows in frm.doc
@@ -58,7 +54,9 @@ frappe.ui.form.on('Job Card Production', {
   
   function fetch_chemicals_and_dyes(frm) {
 
-    
+    if (frm.doc.finish_item && frm.doc.qty) {
+        
+   
     frappe.call({
         method: "farsint.farsint.utils.fetch_recipe.fetch_recipe",
         args: { finish_item: frm.doc.finish_item },
@@ -85,9 +83,12 @@ frappe.ui.form.on('Job Card Production', {
                     
                 });
                 frm.refresh_field("raw_item_chamicals");
+                calculate_totals(frm,"total_amount","raw_item_chamicals","amount",5);
+                frm.set_value("rate_per_kg",(frm.doc.total_amount/frm.doc.qty).toFixed(5));
             }
         }
     });
+}
 }
 
 
@@ -128,15 +129,6 @@ function create_finish_stock_entry(frm){
         }
     });
     }
-
-function apply_percentage_on_chemicals(frm, cdt, cdn){
-    var row = locals[cdt][cdn];
-    var percentage = row.percentage;
-    var qty_per_kg = 1000 * (flt(percentage) / 100) / 1000;
-    frappe.model.set_value(cdt, cdn, 'qty_per_kg', qty_per_kg);
-    frappe.model.set_value(cdt, cdn, 'qty_required', flt(qty_per_kg) * flt(frm.doc.total_fabric_issue));
-    frappe.model.set_value(cdt, cdn, 'amount', row.rate * flt(row.qty_required));
-}
 
 
 function fetch_sub_operations(frm){

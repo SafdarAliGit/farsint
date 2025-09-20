@@ -7,7 +7,6 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "percentage",
   "uom",
   "qty_per_kg",
   "qty_required",
@@ -21,13 +20,6 @@
    "in_list_view": 1,
    "label": "Item",
    "options": "Item"
-  },
-  {
-   "fieldname": "percentage",
-   "fieldtype": "Percent",
-   "in_list_view": 1,
-   "label": "Percentage",
-   "precision": "2"
   },
   {
    "fetch_from": "item.stock_uom",
@@ -61,13 +53,14 @@
    "fieldname": "amount",
    "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Amount"
+   "label": "Amount",
+   "precision": "5"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-19 21:52:09.201258",
+ "modified": "2025-09-20 22:16:34.579795",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Raw Item Chamicals",
