@@ -76,9 +76,9 @@ frappe.ui.form.on('Job Card Production', {
                    
                         row.item = item.item;
                         row.qty_per_kg = item.qty;
-                        row.rate = item.rate;
+                        row.rate = item.valuation_rate;
 						row.qty_required = flt(item.qty) * flt(frm.doc.qty) || 0;
-                        row.amount = flt(item.rate) * flt(item.qty) * flt(frm.doc.qty) || 0;
+                        row.amount = flt(item.valuation_rate) * flt(item.qty) * flt(frm.doc.qty) || 0;
                         row.uom = item.uom;
                     
                 });
