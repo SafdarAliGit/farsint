@@ -41,10 +41,19 @@ def finish_stock_entry(job_card_name):
         "stock_uom": item.stock_uom,
         "uom": item.stock_uom,
         "qty": job_card.qty,
-        "s_warehouse": job_card.production_warehouse,
+        "t_warehouse": job_card.finish_warehouse,
         "is_finished_item": 1
         
     })
+    for item in job_card.raw_item_chamicals:
+        se.append("items", {
+            "item_code": item.item,
+            "stock_uom": item.uom,
+            "uom": item.uom,
+            "qty": item.qty_required,
+            "s_warehouse": job_card.production_warehouse
+           
+        })
 
     # Insert into DB
     se.insert(ignore_permissions=True)
