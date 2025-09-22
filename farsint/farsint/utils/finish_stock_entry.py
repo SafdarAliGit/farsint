@@ -33,15 +33,18 @@ def finish_stock_entry(job_card_name):
     se.custom_job_card_production_finish = job_card.name
 
     # --- Pull items from raw_item_chamicals child table ---
-    for item in job_card.raw_item_chamicals:
-        se.append("items", {
-            "item_code": item.item,
-            "stock_uom": item.uom,
-            "uom": item.uom,
-            "qty": item.qty_required,
-            "s_warehouse": job_card.production_warehouse
-           
-        })
+    if not job_card.finish_item:
+        frappe.throw("Finish Item is required")
+    item = frappe.get_doc("Item", job_card.finish_item)
+    se.append("items", {
+        "item_code": job_card.finish_item,
+        "stock_uom": item.stock_uom,
+        "uom": item.stock_uom,
+        "qty": job_card.qty,
+        "s_warehouse": job_card.production_warehouse,
+        "is_finished_item": 1
+        
+    })
 
     # Insert into DB
     se.insert(ignore_permissions=True)

@@ -176,8 +176,19 @@
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2025-09-20 22:06:50.129548",
+ "links": [
+  {
+   "group": "Finished Good Stock Entry",
+   "link_doctype": "Stock Entry",
+   "link_fieldname": "custom_job_card_production_finish"
+  },
+  {
+   "group": "Material Request",
+   "link_doctype": "Material Request",
+   "link_fieldname": "custom_job_card_production"
+  }
+ ],
+ "modified": "2025-09-22 17:06:32.454596",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Job Card Production",
