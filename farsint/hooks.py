@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/farsint/css/farsint.css"
+app_include_css = "/assets/farsint/css/custom_button_colors.css"
 # app_include_js = "/assets/farsint/js/farsint.js"
 
 # include js, css files in header of web template

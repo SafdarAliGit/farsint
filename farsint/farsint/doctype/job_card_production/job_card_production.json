@@ -160,7 +160,9 @@
   {
    "fieldname": "qty",
    "fieldtype": "Float",
-   "label": "Qty"
+   "in_list_view": 1,
+   "label": "Qty",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_jzmx",
@@ -170,8 +172,10 @@
    "fetch_from": "finish_item.batch_number_series",
    "fieldname": "batch",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Batch",
-   "options": "Batch"
+   "options": "Batch",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -188,7 +192,7 @@
    "link_fieldname": "custom_job_card_production"
   }
  ],
- "modified": "2025-09-22 17:06:32.454596",
+ "modified": "2025-09-22 17:32:44.709438",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Job Card Production",

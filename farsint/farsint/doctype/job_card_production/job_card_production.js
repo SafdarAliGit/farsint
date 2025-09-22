@@ -1,20 +1,23 @@
 frappe.ui.form.on('Job Card Production', {
     refresh: function(frm) {
-		frm.add_custom_button(__('Request Raw Material'), function () {
-            create_material_request_chemicals_and_dyes(frm);
-        }).removeClass("btn-default").addClass("btn btn-xs btn-peach");
-
-		frm.add_custom_button(__('Job Start'), function () {
-            frm.trigger("job_start");
-        }).removeClass("btn-default").addClass("btn btn-xs btn-blue");
-
-		frm.add_custom_button(__('Job End'), function () {
-            frm.trigger("job_end");
-        }).removeClass("btn-default").addClass("btn btn-xs btn-orange");
-
-		frm.add_custom_button(__('Finish'), function () {
-            create_finish_stock_entry(frm);
-        }).removeClass("btn-default").addClass("btn btn-xs btn-green");
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button(__('Request Raw Material'), function () {
+                create_material_request_chemicals_and_dyes(frm);
+            }).removeClass("btn-default").addClass("btn btn-xs btn-peach");
+        
+            frm.add_custom_button(__('Job Start'), function () {
+                frm.trigger("job_start");
+            }).removeClass("btn-default").addClass("btn btn-xs btn-blue");
+        
+            frm.add_custom_button(__('Job End'), function () {
+                frm.trigger("job_end");
+            }).removeClass("btn-default").addClass("btn btn-xs btn-orange");
+        
+            frm.add_custom_button(__('Finish'), function () {
+                create_finish_stock_entry(frm);
+            }).removeClass("btn-default").addClass("btn btn-xs btn-green");
+        }
+        
 
         frm.set_query("finish_item", function () {
             return {

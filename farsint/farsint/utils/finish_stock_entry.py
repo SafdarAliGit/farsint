@@ -42,6 +42,7 @@ def finish_stock_entry(job_card_name):
         "uom": item.stock_uom,
         "qty": job_card.qty,
         "t_warehouse": job_card.finish_warehouse,
+        "batch_no": job_card.batch,
         "is_finished_item": 1
         
     })
