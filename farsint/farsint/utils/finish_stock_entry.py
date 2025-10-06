@@ -42,10 +42,15 @@ def finish_stock_entry(job_card_name):
         "uom": item.stock_uom,
         "qty": job_card.qty,
         "t_warehouse": job_card.finish_warehouse,
-        "batch_no": job_card.batch,
         "is_finished_item": 1
         
     })
+
+    if item.has_batch_no:   
+        se["items"][0].update({
+            "batch_no": job_card.batch
+        })
+    
     for item in job_card.raw_item_chamicals:
         se.append("items", {
             "item_code": item.item,
@@ -63,3 +68,7 @@ def finish_stock_entry(job_card_name):
     se.submit()
 
     return se.name
+
+
+ 
+        
