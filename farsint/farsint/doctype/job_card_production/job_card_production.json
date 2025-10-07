@@ -174,8 +174,7 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Batch",
-   "options": "Batch",
-   "reqd": 1
+   "options": "Batch"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -192,7 +191,7 @@
    "link_fieldname": "custom_job_card_production"
   }
  ],
- "modified": "2025-09-22 17:32:44.709438",
+ "modified": "2025-10-07 18:25:29.074525",
  "modified_by": "Administrator",
  "module": "Farsint",
  "name": "Job Card Production",
