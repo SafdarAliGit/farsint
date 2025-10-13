@@ -35,7 +35,10 @@ frappe.ui.form.on('Job Card Production', {
     },
     operation:function(frm){
 		fetch_sub_operations(frm);
-	}
+	},
+    chemicals_store:function(frm){
+        fetch_chemicals_and_dyes(frm);
+    }
 });
   
 
@@ -62,7 +65,7 @@ frappe.ui.form.on('Job Card Production', {
    
     frappe.call({
         method: "farsint.farsint.utils.fetch_recipe.fetch_recipe",
-        args: { finish_item: frm.doc.finish_item },
+        args: { finish_item: frm.doc.finish_item, warehouse: frm.doc.chemicals_store },
         callback: function(response) {
             if (response.exc) {
                 console.error("Server error:", response.exc);
@@ -83,6 +86,7 @@ frappe.ui.form.on('Job Card Production', {
 						row.qty_required = flt(item.qty) * flt(frm.doc.qty) || 0;
                         row.amount = flt(item.valuation_rate) * flt(item.qty) * flt(frm.doc.qty) || 0;
                         row.uom = item.uom;
+                        row.available_qty = item.qty_after_transaction;
                     
                 });
                 frm.refresh_field("raw_item_chamicals");

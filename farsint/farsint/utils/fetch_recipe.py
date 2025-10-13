@@ -4,13 +4,13 @@ import frappe
 @frappe.whitelist()
 def fetch_recipe(finish_item, warehouse=None):
     """
-    Fetch recipe lines and attach valuation_rate (from Stock Ledger Entry) per item.
+    Fetch recipe lines and attach valuation_rate and qty_after_transaction (from Stock Ledger Entry) per item.
     """
 
     if not finish_item:
         return {"recipe": []}
 
-    # Get recipe lines
+    # ✅ 1. Get recipe lines
     recipe = frappe.get_all(
         "Item Recipe",
         filters={"parent": finish_item},
@@ -18,13 +18,18 @@ def fetch_recipe(finish_item, warehouse=None):
         order_by="idx"
     )
 
-    # For efficiency, get a list of distinct items in recipe
+    if not recipe:
+        return {"recipe": []}
+
+    # ✅ 2. Get distinct items
     items = list({row.get("item") for row in recipe if row.get("item")})
 
-    # Prepare valuation rates mapping
-    val_rates = {}
+    # ✅ 3. Prepare valuation mapping per item
+    val_map = {}
     for item_code in items:
-        # get latest SLE for this item (and optional warehouse)
+        if not item_code:
+            continue
+
         sle_filters = {
             "item_code": item_code,
             "is_cancelled": 0
@@ -35,23 +40,32 @@ def fetch_recipe(finish_item, warehouse=None):
         sle = frappe.get_list(
             "Stock Ledger Entry",
             filters=sle_filters,
-            fields=["valuation_rate"],
+            fields=["valuation_rate", "qty_after_transaction"],
             order_by="posting_date DESC, posting_time DESC",
             limit=1
         )
-        if sle and sle[0].valuation_rate is not None:
-            val_rates[item_code] = sle[0].valuation_rate
-        else:
-            val_rates[item_code] = 0.0
 
-    # Now build recipe list with valuation_rate added
+        if sle:
+            valuation_rate = sle[0].valuation_rate or 0.0
+            qty_after_transaction = sle[0].qty_after_transaction or 0.0
+        else:
+            valuation_rate = 0.0
+            qty_after_transaction = 0.0
+
+        val_map[item_code] = {
+            "valuation_rate": valuation_rate,
+            "qty_after_transaction": qty_after_transaction
+        }
+
+    # ✅ 4. Build final recipe list
     recipe_with_valuation = []
     for row in recipe:
         item_code = row.get("item")
-        row_rate = val_rates.get(item_code, 0.0)
-        # Add a key "valuation_rate" to each row
+        val_info = val_map.get(item_code, {"valuation_rate": 0.0, "qty_after_transaction": 0.0})
+
         new_row = row.copy()
-        new_row["valuation_rate"] = row_rate
+        new_row["valuation_rate"] = val_info["valuation_rate"]
+        new_row["qty_after_transaction"] = val_info["qty_after_transaction"]
         recipe_with_valuation.append(new_row)
 
     return {
